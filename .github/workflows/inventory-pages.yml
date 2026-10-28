@@ -1,0 +1,44 @@
+name: Test and deploy inventory to GitHub Pages
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'inventory/**'
+      - 'index.html'
+      - '.github/workflows/inventory-pages.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test inventory calculations and validation
+        run: npm --prefix inventory test
+      - name: Check JavaScript syntax
+        run: npm --prefix inventory run check
+      - name: Build site with inventory subfolder
+        run: |
+          mkdir -p _site/inventory
+          cp index.html _site/index.html
+          cp -R inventory/dist/. _site/inventory/
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
