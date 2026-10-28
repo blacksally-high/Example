@@ -13,3 +13,13 @@
 이 프로그램은 개인용이며 데이터는 브라우저에 저장됩니다. 다른 주소의 기존 프로그램에서 이전하려면 JSON 백업·복원을 사용하세요.
 
 GitHub Pages에서 최초 실행하려면 Settings → Pages → Source를 GitHub Actions로 설정하고 배포 워크플로가 성공했는지 확인하세요.
+
+## 회의 관리 시스템
+
+소스 코드는 [`meeting-management-system/`](./meeting-management-system/) 하위 폴더에 있습니다.
+
+- [비공개 운영 사이트](https://meeting-control-20261028.blondstone19.chatgpt.site/)
+- [설치·실행·배포 안내](./meeting-management-system/README.md)
+- [빌드 확인 워크플로](./.github/workflows/meeting-management-check.yml)
+
+회의 기록과 첨부 파일은 서버 저장소에 보관하므로 GitHub Pages에 소스만 올려서는 실행되지 않습니다. 운영 사이트의 접근 권한과 데이터는 이 공개 저장소에 포함되지 않습니다.

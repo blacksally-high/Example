@@ -1,0 +1,13 @@
+{
+  "name": "meeting-management-system",
+  "main": "dist/server/index.js",
+  "compatibility_date": "2026-10-28",
+  "workers_dev": false,
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "YOUR_PRIVATE_R2_BUCKET_NAME"
+    }
+  ]
+}
+
