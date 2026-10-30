@@ -4,7 +4,6 @@ on:
     branches: [main]
     paths:
       - 'inventory/**'
-      - 'simple-memo/**'
       - 'index.html'
       - '.github/workflows/inventory-pages.yml'
   workflow_dispatch:
@@ -35,8 +34,6 @@ jobs:
           mkdir -p _site/inventory
           cp index.html _site/index.html
           cp -R inventory/dist/. _site/inventory/
-          mkdir -p _site/simple-memo
-          cp simple-memo/index.html _site/simple-memo/index.html
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
