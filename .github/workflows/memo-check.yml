@@ -1,0 +1,30 @@
+name: Check mobile memo app
+on:
+  push:
+    branches: [main]
+    paths: ['simple-memo/**', '.github/workflows/memo-check.yml']
+  pull_request:
+    paths: ['simple-memo/**', '.github/workflows/memo-check.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: simple-memo
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: simple-memo/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          VITE_PUBLIC_SIGNUP_READY: 'false'
